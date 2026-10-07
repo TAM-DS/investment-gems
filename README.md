@@ -17,3 +17,7 @@ python -m pytest
 ```
 
 Related: [capital-markets-research-desk](https://github.com/TAM-DS/capital-markets-research-desk) writes the memo. [paper-trading-floor](https://github.com/TAM-DS/paper-trading-floor) is the only paper fill path, and it does not read this watchlist as an order.
+
+## Dashboard
+
+Open [docs/index.html](docs/index.html). It shows the same fixture decisions as the tests. It is not a live market feed.
