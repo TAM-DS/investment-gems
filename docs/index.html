@@ -20,6 +20,7 @@
   .watch { color:#2f5d32; }
   .drop { color:var(--red); }
   footer { padding:0 40px 28px; color:#6d675c; font:12px/1.4 ui-sans-serif, sans-serif; }
+@media (max-width: 760px) { header { display:block; padding:20px; } main, .grid, .lanes { display:grid; grid-template-columns:1fr; padding:20px; } .banner { margin:16px 20px; display:block; } table { display:block; overflow-x:auto; width:calc(100% - 40px); margin:0 20px 18px; } footer { padding:20px; } }
 </style>
 </head>
 <body>
@@ -31,13 +32,13 @@
 </header>
 <div class="banner"><span>Local hurdle: quality minus stretch. Stale filings do not average in.</span><span>Order authority · false</span></div>
 <div class="grid">
-  <article><div class="book">US equities</div><h2>NGRD</h2><div class="score watch">56</div><p>Nova Grid. Contracted backlog. Invalidation: next filing misses the fixture fact.</p></div>
-  <article><div class="book">Commodity-linked</div><h2>HLNG</h2><div class="score watch">56</div><p>Harbor LNG. Gas-linked cash flow. The equity is not a Henry Hub position.</p></div>
-  <article><div class="book">Commodity-linked</div><h2>PPIPE</h2><div class="score watch">55</div><p>Prairie Pipe. Midstream volume. Suggestion only.</p></div>
+  <article><div class="book">US equities</div><h2>NGRD</h2><div class="score watch">56</div><p>Nova Grid. Contracted backlog. Invalidation: next filing misses the fixture fact.</p></article>
+  <article><div class="book">Commodity-linked</div><h2>HLNG</h2><div class="score watch">56</div><p>Harbor LNG. Gas-linked cash flow. The equity is not a Henry Hub position.</p></article>
+  <article><div class="book">Commodity-linked</div><h2>PPIPE</h2><div class="score watch">55</div><p>Prairie Pipe. Midstream volume. Suggestion only.</p></article>
   <article><div class="book">Power · rejected</div><h2>ERUT</h2><div class="score drop">36</div><p>ERCOT Utility. Below the hurdle. A hub price is not the equity.</p></article>
-  <article><div class="book">Rejected</div><h2>STALE</h2><div class="score drop">Stale</div><p>Old Chemical. Filing as-of 15 Jan 2026. Not promoted.</p></div>
-  <article><div class="book">Rejected</div><h2>MEME</h2><div class="score drop">Below hurdle</div><p>Headline Metals. Story without a filing fact.</p></div>
+  <article><div class="book">Rejected</div><h2>STALE</h2><div class="score drop">Stale</div><p>Old Chemical. Filing as-of 15 Jan 2026. Not promoted.</p></article>
+  <article><div class="book">Rejected</div><h2>MEME</h2><div class="score drop">Below hurdle</div><p>Headline Metals. Story without a filing fact.</p></article>
 </div>
-<footer>Synthetic universe. Not a forecast, not a price target, and not financial advice. CrewAI seats exist for a live run. The hurdle does not need a key.</footer>
+<footer>Synthetic universe. Not a forecast, not a price target, and not financial advice. Static fixture view, not a live feed. Optional CrewAI agent construction is not a verified crew run.</footer>
 </body>
 </html>

@@ -2,7 +2,9 @@
 
 Suggestion-only screen for a small synthetic universe of equities, midstream, LNG, and a power name. A watchlist item is not an order, a price target, or a commodity position.
 
-The crew has three seats: quality, commodity link, and invalidation. The hurdle runs locally, so the evidence does not depend on an API key. If CrewAI is installed, `crewai_agents()` returns the same seats for a live run.
+The crew has three seats: quality, commodity link, and invalidation. The hurdle runs locally, so the evidence does not depend on an API key. If CrewAI is installed, `crewai_agents()` constructs three agent objects. It does not create a Crew, run tasks, invoke a model, or establish live orchestration.
+
+The implemented screen evaluates six synthetic names locally. It does not search live securities or filings.
 
 ## What it does not do
 
