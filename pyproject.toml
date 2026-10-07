@@ -1,0 +1,9 @@
+[project]
+name = "investment-gems"
+version = "1.0.0"
+description = "Suggestion-only equity and commodity-linked screener. A watchlist is not an order."
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
