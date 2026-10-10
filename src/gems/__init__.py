@@ -38,6 +38,9 @@ def screen(limit: int = 3) -> dict:
 
 def crewai_agents():
     """Return CrewAI agents when the package is installed. Tests do not require it."""
+    import os
+    if not os.getenv("OPENAI_API_KEY"):
+        return None
     try:
         from crewai import Agent
     except ImportError:
