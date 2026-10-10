@@ -1,25 +1,43 @@
-# Automate your search for investment gems
+# Investment Gems · v2
 
-Suggestion-only screen for a small synthetic universe of equities, midstream, LNG, and a power name. A watchlist item is not an order, a price target, or a commodity position.
+A transparent price/volume screener with explicit momentum, volatility, and liquidity hurdles.
 
-The crew has three seats: quality, commodity link, and invalidation. The hurdle runs locally, so the evidence does not depend on an API key. If CrewAI is installed, `crewai_agents()` constructs three agent objects. It does not create a Crew, run tasks, invoke a model, or establish live orchestration.
+## Run in PyCharm or a terminal
 
-The implemented screen evaluates six synthetic names locally. It does not search live securities or filings.
-
-## What it does not do
-
-- It does not place a trade or call a broker.
-- It does not claim the scores are forecasts.
-- Stale filings and weak stories are rejected, not averaged away.
-
-## Run
+Clone this repository, open its folder in PyCharm, and select a Python 3.11–3.13 virtual environment. From the project terminal:
 
 ```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e ".[dev,ai]"
 python -m pytest
+python -m streamlit run app.py
 ```
 
-Related: [capital-markets-research-desk](https://github.com/TAM-DS/capital-markets-research-desk) writes the memo. [paper-trading-floor](https://github.com/TAM-DS/paper-trading-floor) is the only paper fill path, and it does not read this watchlist as an order.
+Set `MASSIVE_API_KEY` and, for optional model review, `OPENAI_API_KEY` in your local run configuration environment variables. `CREWAI_MODEL` defaults to `openai/gpt-4.1-mini`; override with an available CrewAI-compatible model. Keys never belong in GitHub or chat. `.env.example` documents variable names; the app does not automatically load `.env`.
 
-## Dashboard
+## Three explicit data modes
 
-Open [docs/index.html](docs/index.html). It shows the same fixture decisions as the tests. It is not a live market feed.
+- **demo**: generated synthetic daily bars; needs no keys and proves workflow mechanics only.
+- **massive**: retrieves actual split-adjusted daily OHLCV through Massive's REST API. Free Basic is end-of-day, five requests/minute, two years of history. Requests are paced at 12.5 seconds per session; multiple simultaneous processes share the account limit and may receive HTTP 429.
+- **cache**: reads a previously fetched response for the exact ticker/date range. No silent fallback or claim that cached data is current.
+
+Choose 1–5 US equity/ETF tickers and at least 60 trading sessions. Energy equities/ETFs such as XLE, XOM, and LNG are proxies, not ERCOT power or Henry Hub spot data. Data is checked for finite prices, OHLC consistency, ordered timestamps, date bounds, and sufficient history. Each evidence package carries its source, as-of date, provider request ID when available, and SHA-256 digest.
+
+## Actual CrewAI execution
+
+The optional review creates a sequential Crew with three Agents and three Tasks, then calls `kickoff()`: market researcher → skeptical risk reviewer → evidence editor. The final output uses a Pydantic schema. Unknown evidence identifiers are rejected. Agents receive precomputed metrics, have no external tools, and cannot submit orders. Identifier validation does not prove semantic accuracy; all model text requires human review. Model use incurs provider charges. A failed call accepts no new review.
+
+## Financial interpretation
+
+Returns, 20-session momentum, annualized daily-return volatility, maximum price drawdown, and average daily dollar volume are calculated in Python, never by a model. Historical SMA20 evaluation uses a fixed rule, the final 30% of observations as a chronological holdout, prior-close signals, next-open execution, open-to-open returns, and configurable one-way costs. No optimization is performed. Prices are split-adjusted, not total returns; dividends, financing, market impact, and point-in-time universe selection are not modeled. A positive result is not a forecast or a profitability claim.
+
+## Review boundary and limitations
+
+This is a local portfolio research/simulation application, not customer production. No broker, exchange connection, or real-money execution exists. Reviewer names in the paper app are local audit labels, not authenticated identities. Synthetic demos and static legacy dashboards remain clearly labeled. Live Massive and model calls must be verified with locally configured credentials; offline tests do not establish provider connectivity. Check provider licensing before redistributing downloaded data.
+
+## Existing evidence
+
+[Legacy fixture scope](docs/legacy-fixture-scope.md) preserves the previous deterministic/protocol implementation and its limitations. Existing tests remain alongside the new market-data tests. The interactive app is `app.py`; `docs/index.html` remains the older static fixture view.
+
+[Massive aggregate API](https://massive.com/docs/rest/stocks/aggregates/custom-bars) · [CrewAI documentation](https://docs.crewai.com/)
